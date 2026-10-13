@@ -1,1 +1,101 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MyQTH · Ryan Clarke · Fox Run Labs</title><meta name="description" content="A native iOS amateur radio location utility with multiple coordinate representations."><meta name="theme-color" content="#12282d"><link rel="stylesheet" href="style.css"></head><body><a class="skip" href="#case-content">Skip to case study</a><header><a class="brand" href="index.html" aria-label="Fox Run Labs home"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 5l15 8L35 5l-4 23-11 8L9 28z"/><path class="foxline" d="M9 17l11 11 11-11M20 28v8"/></svg><span>FOX RUN <b>LABS</b></span></a><nav aria-label="Main navigation"><a href="index.html#work">Selected work</a><a href="index.html#about">About Ryan</a><a class="nav-contact" href="https://github.com/foxrunlabs">GitHub ↗</a></nav></header><main><section class="case-hero section"><a class="back-link" href="index.html#work">← Selected work</a><p class="eyebrow">01 / SWIFT · iOS · GEOGRAPHIC COORDINATES</p><h1>MyQTH</h1><p class="case-lede">One location. Several ways to describe it.</p><div class="tags"><span>SwiftUI</span><span>MapKit</span><span>Core Location</span><span>Swift Testing</span></div><a class="button" href="https://github.com/foxrunlabs/myqth">Explore the repository <span aria-hidden="true">↗</span></a></section><section class="case-showcase phone-showcase" aria-label="MyQTH app screenshots"><figure><img src="assets/myqth-main.webp" alt="MyQTH map interface with callsign marker and Maidenhead grid locator" width="800" height="1600"><figcaption>Map and Maidenhead locator</figcaption></figure><figure><img src="assets/myqth-details.webp" alt="MyQTH details screen displaying coordinates and location accuracy" width="800" height="1600"><figcaption>Coordinate representations and accuracy</figcaption></figure></section><div class="case-body section" id="case-content"><aside><p class="eyebrow dark">CASE STUDY</p><p>Personal project<br>Ryan Clarke</p><a href="https://github.com/foxrunlabs/myqth/blob/main/README.md">Build & project documentation ↗</a><a href="https://github.com/foxrunlabs/myqth">Source code ↗</a></aside><article><p class="eyebrow dark">THE PROBLEM</p><h2>Make a location useful in the field.</h2><p>Amateur radio operators use the Maidenhead Locator System to communicate geographic positions. Other contexts call for latitude and longitude, UTM/UPS, or MGRS. MyQTH brings these representations into a focused native iOS utility, alongside an interactive map.</p><h3>What the application does</h3><p>MyQTH presents four- and six-character Maidenhead locators, latitude/longitude in three notations, and WGS 84 UTM, UPS, and MGRS coordinates. It supports on-demand and continuous location updates, a callsign on the map marker, grid-related zoom levels, and a position-details view with reported horizontal accuracy.</p><h3>Architecture: location, mathematics, presentation</h3><p>Core Location supplies the position. Explicit coordinate models represent the conversions. SwiftUI and MapKit present the result. Keeping the mathematics separate from presentation makes the conversion behavior easier to inspect and test.</p><div class="flow-summary"><span>Core Location<br><b>Position</b></span><span>Coordinate models<br><b>Conversion</b></span><span>SwiftUI + MapKit<br><b>Presentation</b></span></div><h3>Two important design choices</h3><p><strong>Native frameworks and a focused scope.</strong> The application uses Apple frameworks without third-party runtime dependencies. It is a location utility rather than a full navigation application; that boundary keeps attention on clear representations and predictable behavior.</p><p><strong>Precision is not accuracy.</strong> More digits do not make the device’s position measurement more accurate. The details view includes Core Location’s horizontal accuracy alongside formatted coordinates so the displayed precision has context.</p><h3>Evidence of verification</h3><p>The repository includes Swift Testing suites for Maidenhead, UTM, UPS, and MGRS behavior. Test cases address geographic boundaries, invalid input, formatting, and special UTM zones in Norway and Svalbard. The UTM suite includes explicit expected values for northern and southern hemispheres and both longitude boundaries.</p><p>These are checked-in tests, not a claim that the current build or every geographic input has been independently verified for this case study.</p><h3>Scope and next steps</h3><p>Coordinate calculations operate locally and do not require an account or a remote conversion service. The underlying position still depends on the device’s location services and permissions. A useful next step is extracting the coordinate logic into a documented Swift package, with independently sourced reference values and an explicit numerical-precision contract.</p><div class="case-note">Screenshots and implementation descriptions come from the public project repository. See its README for current platform requirements, build instructions, and license.</div></article></div><section class="next-project section"><p class="eyebrow dark">KEEP EXPLORING</p><a href="qbplay.html">QBPlay — text becomes sound <span aria-hidden="true">→</span></a></section></main><footer><a class="brand" href="index.html"><span>FOX RUN <b>LABS</b></span></a><p>Ryan Clarke · Software & systems</p><a class="footer-profile" href="https://www.linkedin.com/in/ryanfclarke">LinkedIn ↗</a><span>DESIGNED TO KEEP EVOLVING.</span></footer></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MyQTH · Ryan Clarke · Fox Run Labs</title>
+    <meta name="description"
+        content="A native iOS amateur radio location utility with multiple coordinate representations.">
+    <meta name="theme-color" content="#12282d">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body><a class="skip" href="#case-content">Skip to case study</a>
+    <header><a class="brand" href="index.html" aria-label="Fox Run Labs home"><svg viewBox="0 0 40 40"
+                aria-hidden="true">
+                <path d="M5 5l15 8L35 5l-4 23-11 8L9 28z" />
+                <path class="foxline" d="M9 17l11 11 11-11M20 28v8" />
+            </svg><span>FOX RUN <b>LABS</b></span></a>
+        <nav aria-label="Main navigation"><a href="index.html#work">Selected work</a><a href="index.html#about">About
+                Ryan</a><a class="nav-contact" href="https://github.com/foxrunlabs">GitHub ↗</a></nav>
+    </header>
+    <main>
+        <section class="case-hero section"><a class="back-link" href="index.html#work">← Selected work</a>
+            <p class="eyebrow">01 / SWIFT · iOS · GEOGRAPHIC COORDINATES</p>
+            <h1>MyQTH</h1>
+            <p class="case-lede">One location. Several ways to describe it.</p>
+            <div class="tags"><span>SwiftUI</span><span>MapKit</span><span>Core Location</span><span>Swift
+                    Testing</span></div><a class="button" href="https://github.com/foxrunlabs/myqth">Explore the
+                repository <span aria-hidden="true">↗</span></a>
+        </section>
+        <section class="case-showcase phone-showcase" aria-label="MyQTH app screenshots">
+            <figure><img src="assets/myqth-main.png"
+                    alt="MyQTH map interface with callsign marker and Maidenhead grid locator" width="800"
+                    height="1600">
+                <figcaption>Map and Maidenhead locator</figcaption>
+            </figure>
+            <figure><img src="assets/myqth-details.png"
+                    alt="MyQTH details screen displaying coordinates and location accuracy" width="800" height="1600">
+                <figcaption>Coordinate representations and accuracy</figcaption>
+            </figure>
+        </section>
+        <div class="case-body section" id="case-content">
+            <aside>
+                <p class="eyebrow dark">CASE STUDY</p>
+                <p>Personal project<br>Ryan Clarke</p><a
+                    href="https://github.com/foxrunlabs/myqth/blob/main/README.md">Build & project documentation ↗</a><a
+                    href="https://github.com/foxrunlabs/myqth">Source code ↗</a>
+            </aside>
+            <article>
+                <p class="eyebrow dark">THE PROBLEM</p>
+                <h2>Make a location useful in the field.</h2>
+                <p>Amateur radio operators use the Maidenhead Locator System to communicate geographic positions. Other
+                    contexts call for latitude and longitude, UTM/UPS, or MGRS. MyQTH brings these representations into
+                    a focused native iOS utility, alongside an interactive map.</p>
+                <h3>What the application does</h3>
+                <p>MyQTH presents four- and six-character Maidenhead locators, latitude/longitude in three notations,
+                    and WGS 84 UTM, UPS, and MGRS coordinates. It supports on-demand and continuous location updates, a
+                    callsign on the map marker, grid-related zoom levels, and a position-details view with reported
+                    horizontal accuracy.</p>
+                <h3>Architecture: location, mathematics, presentation</h3>
+                <p>Core Location supplies the position. Explicit coordinate models represent the conversions. SwiftUI
+                    and MapKit present the result. Keeping the mathematics separate from presentation makes the
+                    conversion behavior easier to inspect and test.</p>
+                <div class="flow-summary"><span>Core Location<br><b>Position</b></span><span>Coordinate
+                        models<br><b>Conversion</b></span><span>SwiftUI + MapKit<br><b>Presentation</b></span></div>
+                <h3>Two important design choices</h3>
+                <p><strong>Native frameworks and a focused scope.</strong> The application uses Apple frameworks without
+                    third-party runtime dependencies. It is a location utility rather than a full navigation
+                    application; that boundary keeps attention on clear representations and predictable behavior.</p>
+                <p><strong>Precision is not accuracy.</strong> More digits do not make the device’s position measurement
+                    more accurate. The details view includes Core Location’s horizontal accuracy alongside formatted
+                    coordinates so the displayed precision has context.</p>
+                <h3>Evidence of verification</h3>
+                <p>The repository includes Swift Testing suites for Maidenhead, UTM, UPS, and MGRS behavior. Test cases
+                    address geographic boundaries, invalid input, formatting, and special UTM zones in Norway and
+                    Svalbard. The UTM suite includes explicit expected values for northern and southern hemispheres and
+                    both longitude boundaries.</p>
+                <p>These are checked-in tests, not a claim that the current build or every geographic input has been
+                    independently verified for this case study.</p>
+                <h3>Scope and next steps</h3>
+                <p>Coordinate calculations operate locally and do not require an account or a remote conversion service.
+                    The underlying position still depends on the device’s location services and permissions. A useful
+                    next step is extracting the coordinate logic into a documented Swift package, with independently
+                    sourced reference values and an explicit numerical-precision contract.</p>
+                <div class="case-note">Screenshots and implementation descriptions come from the public project
+                    repository. See its README for current platform requirements, build instructions, and license.</div>
+            </article>
+        </div>
+        <section class="next-project section">
+            <p class="eyebrow dark">KEEP EXPLORING</p><a href="qbplay.html">QBPlay — text becomes sound <span
+                    aria-hidden="true">→</span></a>
+        </section>
+    </main>
+    <footer><a class="brand" href="index.html"><span>FOX RUN <b>LABS</b></span></a>
+        <p>Ryan Clarke · Software & systems</p><a class="footer-profile"
+            href="https://www.linkedin.com/in/ryanfclarke">LinkedIn ↗</a><span>DESIGNED TO KEEP EVOLVING.</span>
+    </footer>
+</body>
+
+</html>

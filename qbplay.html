@@ -1,1 +1,98 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QBPlay · Ryan Clarke · Fox Run Labs</title><meta name="description" content="A macOS music macro interpreter with local audio synthesis and WAV export."><meta name="theme-color" content="#12282d"><link rel="stylesheet" href="style.css"></head><body><a class="skip" href="#case-content">Skip to case study</a><header><a class="brand" href="index.html" aria-label="Fox Run Labs home"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 5l15 8L35 5l-4 23-11 8L9 28z"/><path class="foxline" d="M9 17l11 11 11-11M20 28v8"/></svg><span>FOX RUN <b>LABS</b></span></a><nav aria-label="Main navigation"><a href="index.html#work">Selected work</a><a href="index.html#about">About Ryan</a><a class="nav-contact" href="https://github.com/foxrunlabs">GitHub ↗</a></nav></header><main><section class="case-hero section"><a class="back-link" href="index.html#work">← Selected work</a><p class="eyebrow">02 / SWIFT · macOS · PARSING & AUDIO</p><h1>QBPlay</h1><p class="case-lede">Text becomes sound. A retro idea with a native audio pipeline.</p><div class="tags"><span>SwiftUI</span><span>MML interpreter</span><span>AVAudioEngine</span><span>Accelerate</span></div><a class="button" href="https://github.com/foxrunlabs/qbplay">Explore the repository <span aria-hidden="true">↗</span></a></section><section class="case-showcase desktop-showcase"><figure><img src="assets/qbplay.webp" alt="QBPlay macOS window with a QBasic-inspired music editor and Play and Export buttons" width="1400" height="1162"><figcaption>A QBasic-inspired interface, running as a native macOS application.</figcaption></figure></section><div class="case-body section" id="case-content"><aside><p class="eyebrow dark">CASE STUDY</p><p>Personal project<br>Ryan Clarke</p><a href="https://github.com/foxrunlabs/qbplay/blob/main/README.md">Build & project documentation ↗</a><a href="https://github.com/foxrunlabs/qbplay">Source code ↗</a></aside><article><p class="eyebrow dark">THE PROBLEM</p><h2>Bring a small music language to life.</h2><p>QBasic’s PLAY command describes music using compact text commands. QBPlay interprets a useful subset of that language in a native macOS application: enter a tune, hear it, and export the rendered audio as a WAV file.</p><h3>From characters to samples</h3><p>The project separates lexical analysis, interpretation, musical events, synthesis, and playback. The lexer identifies commands; the interpreter applies tempo, octave, duration, and articulation state. Musical events carry timing and pitch into a renderer that generates the sample data.</p><div class="flow-summary"><span>MML input<br><b>Commands</b></span><span>Interpreter<br><b>Music events</b></span><span>Synthesizer<br><b>Audio samples</b></span></div><p>AVAudioEngine handles playback, while Apple Accelerate supports waveform generation. The same rendered result can be used for listening and export, keeping those paths connected to one synthesis implementation.</p><h3>Designing how a note sounds</h3><p>The renderer starts from a sine wave and shapes it toward a square-like waveform. Short attack and release envelopes reduce clicks at note boundaries. Legato notes preserve oscillator phase across connected notes; normal and staccato articulation leave different amounts of silence within a note’s duration.</p><p>This makes the project more than a text parser: musical timing must become a precise number of samples, and transitions between events affect the result that a listener hears.</p><h3>Compatibility with a deliberate boundary</h3><p>The supported syntax includes named and numbered notes, accidentals, rests, dotted durations, tempo, octave shifts, and articulation. QBasic’s MB and MF commands are accepted for compatibility but do not change playback. The app produces a single monophonic stream; it does not emulate QBasic or support every historical PLAY feature.</p><h3>Evidence and next steps</h3><p>The repository provides a screenshot, sample audio, source code, and build instructions. Its source separates parsing from rendering, and the synthesis implementation explicitly handles envelopes and phase continuity.</p><p>Automated parser and renderer tests would strengthen the next iteration: malformed commands, error positions, note durations, rest silence, sample counts, and finite output values. A further practical question is how to bound memory use for long input, because the renderer assembles the complete output in memory.</p><a class="text-link" href="https://github.com/foxrunlabs/qbplay/blob/main/doc/sounds/gorillas_theme.wav">Listen to the repository’s audio example ↗</a><div class="case-note">This case study describes the checked-in implementation. It does not claim a current passing automated test suite. Build requirements, syntax details, and credits are documented in the repository.</div></article></div><section class="next-project section"><p class="eyebrow dark">KEEP EXPLORING</p><a href="chip8-stm32.html">CHIP-8 — beyond the screen <span aria-hidden="true">→</span></a></section></main><footer><a class="brand" href="index.html"><span>FOX RUN <b>LABS</b></span></a><p>Ryan Clarke · Software & systems</p><a class="footer-profile" href="https://www.linkedin.com/in/ryanfclarke">LinkedIn ↗</a><span>DESIGNED TO KEEP EVOLVING.</span></footer></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>QBPlay · Ryan Clarke · Fox Run Labs</title>
+    <meta name="description" content="A macOS music macro interpreter with local audio synthesis and WAV export.">
+    <meta name="theme-color" content="#12282d">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body><a class="skip" href="#case-content">Skip to case study</a>
+    <header><a class="brand" href="index.html" aria-label="Fox Run Labs home"><svg viewBox="0 0 40 40"
+                aria-hidden="true">
+                <path d="M5 5l15 8L35 5l-4 23-11 8L9 28z" />
+                <path class="foxline" d="M9 17l11 11 11-11M20 28v8" />
+            </svg><span>FOX RUN <b>LABS</b></span></a>
+        <nav aria-label="Main navigation"><a href="index.html#work">Selected work</a><a href="index.html#about">About
+                Ryan</a><a class="nav-contact" href="https://github.com/foxrunlabs">GitHub ↗</a></nav>
+    </header>
+    <main>
+        <section class="case-hero section"><a class="back-link" href="index.html#work">← Selected work</a>
+            <p class="eyebrow">02 / SWIFT · macOS · PARSING & AUDIO</p>
+            <h1>QBPlay</h1>
+            <p class="case-lede">Text becomes sound. A retro idea with a native audio pipeline.</p>
+            <div class="tags"><span>SwiftUI</span><span>MML
+                    interpreter</span><span>AVAudioEngine</span><span>Accelerate</span></div><a class="button"
+                href="https://github.com/foxrunlabs/qbplay">Explore the repository <span aria-hidden="true">↗</span></a>
+        </section>
+        <section class="case-showcase desktop-showcase">
+            <figure><img src="assets/qbplay.png"
+                    alt="QBPlay macOS window with a QBasic-inspired music editor and Play and Export buttons"
+                    width="1400" height="1162">
+                <figcaption>A QBasic-inspired interface, running as a native macOS application.</figcaption>
+            </figure>
+        </section>
+        <div class="case-body section" id="case-content">
+            <aside>
+                <p class="eyebrow dark">CASE STUDY</p>
+                <p>Personal project<br>Ryan Clarke</p><a
+                    href="https://github.com/foxrunlabs/qbplay/blob/main/README.md">Build & project documentation
+                    ↗</a><a href="https://github.com/foxrunlabs/qbplay">Source code ↗</a>
+            </aside>
+            <article>
+                <p class="eyebrow dark">THE PROBLEM</p>
+                <h2>Bring a small music language to life.</h2>
+                <p>QBasic’s PLAY command describes music using compact text commands. QBPlay interprets a useful subset
+                    of that language in a native macOS application: enter a tune, hear it, and export the rendered audio
+                    as a WAV file.</p>
+                <h3>From characters to samples</h3>
+                <p>The project separates lexical analysis, interpretation, musical events, synthesis, and playback. The
+                    lexer identifies commands; the interpreter applies tempo, octave, duration, and articulation state.
+                    Musical events carry timing and pitch into a renderer that generates the sample data.</p>
+                <div class="flow-summary"><span>MML input<br><b>Commands</b></span><span>Interpreter<br><b>Music
+                            events</b></span><span>Synthesizer<br><b>Audio samples</b></span></div>
+                <p>AVAudioEngine handles playback, while Apple Accelerate supports waveform generation. The same
+                    rendered result can be used for listening and export, keeping those paths connected to one synthesis
+                    implementation.</p>
+                <h3>Designing how a note sounds</h3>
+                <p>The renderer starts from a sine wave and shapes it toward a square-like waveform. Short attack and
+                    release envelopes reduce clicks at note boundaries. Legato notes preserve oscillator phase across
+                    connected notes; normal and staccato articulation leave different amounts of silence within a note’s
+                    duration.</p>
+                <p>This makes the project more than a text parser: musical timing must become a precise number of
+                    samples, and transitions between events affect the result that a listener hears.</p>
+                <h3>Compatibility with a deliberate boundary</h3>
+                <p>The supported syntax includes named and numbered notes, accidentals, rests, dotted durations, tempo,
+                    octave shifts, and articulation. QBasic’s MB and MF commands are accepted for compatibility but do
+                    not change playback. The app produces a single monophonic stream; it does not emulate QBasic or
+                    support every historical PLAY feature.</p>
+                <h3>Evidence and next steps</h3>
+                <p>The repository provides a screenshot, sample audio, source code, and build instructions. Its source
+                    separates parsing from rendering, and the synthesis implementation explicitly handles envelopes and
+                    phase continuity.</p>
+                <p>Automated parser and renderer tests would strengthen the next iteration: malformed commands, error
+                    positions, note durations, rest silence, sample counts, and finite output values. A further
+                    practical question is how to bound memory use for long input, because the renderer assembles the
+                    complete output in memory.</p><a class="text-link"
+                    href="https://github.com/foxrunlabs/qbplay/blob/main/doc/sounds/gorillas_theme.wav">Listen to the
+                    repository’s audio example ↗</a>
+                <div class="case-note">This case study describes the checked-in implementation. It does not claim a
+                    current passing automated test suite. Build requirements, syntax details, and credits are documented
+                    in the repository.</div>
+            </article>
+        </div>
+        <section class="next-project section">
+            <p class="eyebrow dark">KEEP EXPLORING</p><a href="chip8-stm32.html">CHIP-8 — beyond the screen <span
+                    aria-hidden="true">→</span></a>
+        </section>
+    </main>
+    <footer><a class="brand" href="index.html"><span>FOX RUN <b>LABS</b></span></a>
+        <p>Ryan Clarke · Software & systems</p><a class="footer-profile"
+            href="https://www.linkedin.com/in/ryanfclarke">LinkedIn ↗</a><span>DESIGNED TO KEEP EVOLVING.</span>
+    </footer>
+</body>
+
+</html>
