@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CheckFire · Ryan Clarke · Fox Run Labs</title>
+    <meta name="description" content="A native iOS military pay estimator using SwiftUI, SwiftData, Decimal financial calculations, and Swift Charts. In development for future App Store submission.">
+    <meta name="theme-color" content="#12282d">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body><a class="skip" href="#case-content">Skip to case study</a>
+    <header><a class="brand" href="index.html" aria-label="Fox Run Labs home"><svg viewBox="0 0 40 40"
+                aria-hidden="true">
+                <path d="M5 5l15 8L35 5l-4 23-11 8L9 28z" />
+                <path class="foxline" d="M9 17l11 11 11-11M20 28v8" />
+            </svg><span>FOX RUN <b>LABS</b></span></a>
+        <nav aria-label="Main navigation"><a href="index.html#work">Selected work</a><a href="index.html#about">About
+                Ryan</a><a class="nav-contact" href="https://github.com/foxrunlabs">GitHub ↗</a></nav>
+    </header>
+    <main>
+        <section class="case-hero section"><a class="back-link" href="index.html#work">← Selected work</a>
+            <p class="eyebrow">02 / SWIFT · iOS · FINANCIAL MODELING</p>
+            <h1>CheckFire</h1>
+            <p class="case-lede">Military pay, made clearer. From compensation rules to a native iOS experience.</p>
+            <div class="tags"><span>SwiftUI</span><span>SwiftData</span><span>Decimal</span><span>Swift Charts</span></div><a
+                class="button" href="https://github.com/foxrunlabs/checkfire">Explore the repository <span aria-hidden="true">↗</span></a>
+        </section>
+        <section class="case-showcase phone-showcase" aria-label="CheckFire app screenshot">
+            <figure><img src="assets/checkfire-net-pay.png"
+                    alt="CheckFire net pay estimate with a chart and itemized entitlements, deductions, and allotments"
+                    width="1419" height="2796">
+                <figcaption>Estimated take-home pay, with a visual and itemized compensation breakdown.</figcaption>
+            </figure>
+        </section>
+        <div class="case-body section" id="case-content">
+            <aside>
+                <p class="eyebrow dark">CASE STUDY</p>
+                <p>Personal project<br>Ryan Clarke<br>In development</p><a
+                    href="https://github.com/foxrunlabs/checkfire/blob/main/README.md">Build & project documentation ↗</a><a
+                    href="https://github.com/foxrunlabs/checkfire">Source code ↗</a>
+            </aside>
+            <article>
+                <p class="eyebrow dark">THE PROBLEM</p>
+                <h2>Make complex compensation understandable.</h2>
+                <p>Military take-home pay depends on more than basic pay. Allowances, special and incentive pays,
+                    retirement contributions, federal withholding, and deductions interact. CheckFire brings these
+                    inputs into a native iOS application for estimating monthly compensation and exploring saved paycheck scenarios.</p>
+                <h3>Model the rules before presenting the result</h3>
+                <p>The Paycheck model represents pay grade, years of service, entitlements, deductions, withholding
+                    inputs, and Traditional and Roth Thrift Savings Plan contributions. Pay components have explicit
+                    categories that determine their treatment in taxable wages, retirement contributions, and net pay.</p>
+                <div class="flow-summary"><span>Compensation inputs<br><b>Pay scenario</b></span><span>Decimal arithmetic<br><b>Financial model</b></span><span>SwiftUI + Charts<br><b>Pay breakdown</b></span></div>
+                <h3>Financial calculations with explicit precision</h3>
+                <p>Monetary calculations use Swift’s Decimal type, with shared rounding utilities for currency values.
+                    The model calculates contribution amounts and take-home pay from the configured compensation,
+                    taxes, and deductions. Making those operations explicit keeps the financial behavior inspectable.</p>
+                <p>Federal withholding tables are stored in tax-year-specific JSON and loaded through a dedicated
+                    repository. The withholding model applies filing status, multiple-job settings, dependents,
+                    other income, deductions, and additional withholding; it also estimates Social Security and Medicare.
+                    Separating table data from the algorithm makes annual data updates easier to maintain.</p>
+                <h3>A persistent, reactive native interface</h3>
+                <p>SwiftData stores paycheck scenarios locally, supporting creation, duplication, editing, and comparison.
+                    SwiftUI bindings and queries connect those models to reusable currency, pay-period, and contribution
+                    controls. Swift Charts presents the relationship between compensation, deductions, and estimated net pay.</p>
+                <h3>From portfolio project toward App Store submission</h3>
+                <p>CheckFire combines domain knowledge of military compensation with native interface design, persistent
+                    data modeling, and financial calculation logic. It remains under development, with App Store submission
+                    planned after further refinement and validation. It is not currently published on the App Store.</p>
+                <p>Next steps include validating calculation behavior against reference examples, strengthening automated
+                    coverage for withholding and rounding boundaries, and refining the experience for release.</p>
+                <div class="case-note">Screenshots and implementation details come from the CheckFire repository.
+                    This website update does not independently validate the app’s calculations or claim a passing app
+                    test suite. CheckFire is an independent estimation tool; see its README for current status,
+                    requirements, and limitations.</div>
+            </article>
+        </div>
+        <section class="next-project section">
+            <p class="eyebrow dark">KEEP EXPLORING</p><a href="chip8-stm32.html">CHIP-8 — beyond the screen <span
+                    aria-hidden="true">→</span></a>
+        </section>
+    </main>
+    <footer><a class="brand" href="index.html"><span>FOX RUN <b>LABS</b></span></a>
+        <p>Ryan Clarke · Software & systems</p><a class="footer-profile"
+            href="https://www.linkedin.com/in/ryanfclarke">LinkedIn ↗</a><span>DESIGNED TO KEEP EVOLVING.</span>
+    </footer>
+</body>
+
+</html>

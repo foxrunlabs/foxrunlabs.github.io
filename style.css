@@ -1430,3 +1430,10 @@ dialog ul {
         font-size: 22px
     }
 }
+.checkfire-art {
+    background: #e5e9df
+}
+
+.checkfire-art img {
+    filter: drop-shadow(0 8px 10px #102a2825)
+}
